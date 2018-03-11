@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 // Modules
 import auth from './auth.js'
+import newInspection from './newInspection.js';
 
 const store = new Vuex.Store({
   plugins: [persist({
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     expires: 7 * 24 * 60 * 60 * 1e3 // 1 week
   })],
   modules: {
-    auth
+    auth,
+    newInspection
   }
 })
 

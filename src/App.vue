@@ -16,12 +16,22 @@
 import Menu from './components/Menu';
 import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
+
 export default {
   components: {
     Menu,
-    Footer,
+    Footer
   },
   name: 'app',
+  created() {
+    var el = document.getElementsByTagName('html')[0];
+    el.style.backgroundColor = 'white';
+    console.log(el);
+     var el2 = document.getElementsByClassName('page')[0];
+     console.log(el2)
+     el2.style.backgroundColor = 'white';
+     console.log(el2)
+  }
 }
 </script>
 
@@ -30,10 +40,14 @@ body {
   font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
 }
+.htmlColor {
+  background-color: white;
+}
 .app {
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-color: white;
 }
 
 .header {

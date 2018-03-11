@@ -1,5 +1,4 @@
 <template>
-
   <div class="login-page">
     <b-card class="login-card"
             border-variant="primary"
@@ -32,7 +31,10 @@
          </b-col>
         </b-row>
         <b-row class="login-btn-div">
-          <b-button class="login-btn" @click="authenticate()" variant="outline-primary">Login</b-button>
+          <b-button class="login-btn" @click="login()" variant="outline-primary">Login</b-button>
+        </b-row>
+        <b-row class="login-btn-div">
+          <b-button class="login-btn" @click="signUpTest()" variant="outline-primary">Sign up test</b-button>
         </b-row>
     </b-card>
   </div>
@@ -40,10 +42,11 @@
 
 <script>
 
-import auth from '../services/auth';
+import store from '../store';
 import 'vue-awesome/icons/sign-in';
 import 'vue-awesome/icons/user-circle';
 import 'vue-awesome/icons/lock';
+import authService from '../services/auth'
 
 export default {
   data () {
@@ -55,25 +58,60 @@ export default {
       loginPassword : ""
     }
   },
-
   name: 'login',
+  mounted() {
+    var el = document.getElementsByTagName('html')[0];
+    el.style.backgroundColor = '#2783DE';
+    var el2 = document.getElementsByClassName('page')[0];
+    el2.style.backgroundColor = '#2783DE';
+  },
+  beforeDestroy() {
+     var el = document.getElementsByTagName('html')[0];
+     el.style.backgroundColor = 'white';
+     var el2 = document.getElementsByClassName('page')[0];
+     el2.style.backgroundColor = 'white';
+  },
   methods: {
-    authenticate () {
-      console.log(this.loginEmail);
-      console.log(this.loginPassword);
+    authenticate() {
+      var payload = {
+        email : this.loginEmail,
+        passwrod : this.loginPassword
+      }
+      authService.authenticate(payload);
+    },
+    signUpTest() {
+      authService.signUp();
+    },
+    login () {
+      this.$cognitoAuth.signin(this.loginEmail, this.loginPassword, (err, result) => {
+        console.log('error' + err)
+        console.log('result' + result)
+
+        if (err) {
+          this.error = err
+          console.error(err)
+          console.log('error?');
+        } else {
+          console.log(result);
+          router.push({ name: 'HomePage' })
+        }
+      })
     }
   }
 }
 </script>
 
 <style>
-
+/* .htmlColor {
+  background-color: #2783DE;
+} */
+/*
   html {
     background-color: #2783DE;
   }
   .app {
     background-color: #2783DE;
-  }
+  } */
   .login-header {
     text-align: center;
     margin-bottom: 50px;

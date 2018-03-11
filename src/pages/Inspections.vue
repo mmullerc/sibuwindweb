@@ -5,8 +5,16 @@
       <b-col>
         <h2>Inspections</h2>
       </b-col>
-      <b-col class="advancedBtn">
+    </b-row>
+    <b-row>
+      <b-col class="advancedBtn insp-btns">
         <b-button class="right" @click="goToAdvanced()" variant="outline-primary">Advanced search</b-button>
+      </b-col>
+    </b-row>
+      <br>
+    <b-row>
+      <b-col class="advancedBtn insp-btns">
+        <b-button class="right" @click="goToNewInspection()" variant="outline-primary">New Inspection</b-button>
       </b-col>
     </b-row>
     <br>
@@ -59,12 +67,13 @@
 
 <script>
 import InspectionEndOfWarranty from './InspectionEndOfWarranty';
+import InspectionSiteArrival from './InspectionSiteArrival';
 
 const items = [
-  { inspectionNumber: 123, bladeNumber: '2311', Windfarm: 'Los Tulipanes', 'Location': 'Madrid, Spain', Tecnichian: 'Macdonald', 'State': 'Approved', Type: 'End Of Warranty' },
-  { inspectionNumber: 124, bladeNumber: '64211', Windfarm: 'Not set', 'Location': 'Larsen, Poland', Tecnichian: 'Shaw', 'State': 'In Progress', Type: 'End Of Warranty'  },
-  { inspectionNumber: 234, bladeNumber: '451', Windfarm: 'Molinos del sol', 'Location': 'Geneva, Switzerland', Tecnichian: 'Wilson', 'State': 'In Progress', Type: 'End Of Warranty'  },
-  { inspectionNumber: 289, bladeNumber: '321', Windfarm: 'Tilapia asoleada', 'Location': 'Toulouse, Fance', Tecnichian: 'Carney', 'State': 'Approved', Type: 'End Of Warranty'  }
+  { inspectionNumber: 123, bladeNumber: '2334', Windfarm: 'Mesquitte', 'Location': 'Madrid, Spain', Tecnichian: 'Macdonald', 'State': 'Approved', Type: 'End Of Warranty' },
+  { inspectionNumber: 124, bladeNumber: '2335', Windfarm: 'White oak', 'Location': 'Larsen, Poland', Tecnichian: 'Shaw', 'State': 'In Progress', Type: 'Site Arrival'  },
+  { inspectionNumber: 234, bladeNumber: '2336', Windfarm: 'Orange ville', 'Location': 'Geneva, Switzerland', Tecnichian: 'Wilson', 'State': 'In Progress', Type: 'End Of Warranty'  },
+  { inspectionNumber: 289, bladeNumber: '2337', Windfarm: 'Los Molinos', 'Location': 'Toulouse, Fance', Tecnichian: 'Carney', 'State': 'Approved', Type: 'Site Arrival'  }
 ]
 
 export default {
@@ -107,6 +116,8 @@ export default {
       if (inspection == "endofwarranty") {
         //  this.$router.push({ name: 'InspectionEndOfWarranty', path: `/inspection/endofwarranty${item.Id}` });
           this.$router.push({ name: 'InspectionEndOfWarranty',  path: `/inspection/endofwarranty${item.inspectionNumber}`})
+      } else if (inspection == "sitearrival") {
+          this.$router.push({ name: 'InspectionSiteArrival',  path: `/inspection/sitearrival${item.inspectionNumber}`})
       }
     },
     resetModal () {
@@ -120,16 +131,29 @@ export default {
     },
     goToAdvanced() {
       this.$router.push({ name: 'AdvancedSearch',  path: `/advancedsearch`});
+    },
+    goToNewInspection() {
+      this.$router.push({ name: 'NewInspection',  path: `/newinspection`});
     }
   }
 }
 </script>
 <style>
+  @media screen and (max-width: 490px) {
+    .insp-btns {
+      margin-top: 10px;
+      text-align: left;
+    }
+    .advancedBtn {
+      text-align: left;
+    }
+  }
   .center {
     justify-content: center;
   }
   .right {
     justify-content: flex-end;
+    width: 157px;
   }
   table.b-table>thead>tr>th{
     color: #007bff;

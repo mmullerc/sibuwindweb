@@ -1,5 +1,6 @@
 import router from '../router'
 import jwt from 'jwt-decode'
+import authService from '../services/auth';
 
 export default {
   state: {
@@ -37,26 +38,17 @@ export default {
   },
 
   actions: {
-    signout: function (context, payload) {
+    signout: function (context) {
       context.commit('setProfile', null)
       context.commit('setAccessToken', null)
       context.commit('setAuthenticated', false)
       router.push({ name: 'login' })
     },
-    authenticate: function (context, payload) {
-      if (payload.verification === null || payload.verification !== context.getters.verification) {
-        router.push({ name: 'error', params: { message: 'The verification state in the authentication response did not match our original request' } })
-        return
-      }
-
-      if (payload.idToken === null || (jwt(payload.idToken).token_use || null) !== 'id') {
-        router.push({ name: 'error', params: { message: 'The authentication response did not include a valid ID token' } })
-        return
-      }
-
-      context.commit('setProfile', jwt(payload.idToken))
-      context.commit('setAccessToken', payload.accessToken)
-      context.commit('setIdToken', payload.idToken)
+    authenticate: function (context, result) {
+      console.log('action authenticate')
+      context.commit('setProfile', jwt(result.getIdToken().jwtToken))
+      context.commit('setAccessToken', result.getAccessToken().jwtToken)
+      context.commit('setIdToken', result.getIdToken().jwtToken)
       context.commit('setAuthenticated', true)
       router.push({ name: 'home' })
     }

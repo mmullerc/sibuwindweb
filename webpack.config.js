@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var config = require('./src/config')
 
 module.exports = {
   entry: './src/main.js',
@@ -8,6 +9,11 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': config.dev.env
+    })
+  ],
   module: {
     rules: [
       {

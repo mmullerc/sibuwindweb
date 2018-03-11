@@ -5,6 +5,7 @@ import WindFarms from '../pages/WindFarms';
 import Inspections from '../pages/Inspections';
 import InspectionView from '../pages/InspectionView';
 import InspectionEndOfWarranty from '../pages/InspectionEndOfWarranty';
+import InspectionSiteArrival from '../pages/InspectionSiteArrival';
 import Components from '../pages/Components';
 import Settings from '../pages/Settings';
 import AdvancedSearch from '../pages/AdvancedInspectionSearch';
@@ -14,6 +15,8 @@ import Login from '../pages/Login';
 import Callback from '../pages/Callback';
 import ErrorMsg from '../pages/ErrorMsg';
 import store from '../store';
+import NewInspection from '../pages/NewInspection';
+import NewSiteArrival from '../components/NewSiteArrivalComponents/NewSiteArrival';
 
 Vue.use(Router)
 
@@ -50,6 +53,15 @@ const router = new Router({
       path: '/inspection/endofwarranty',
       name: 'InspectionEndOfWarranty',
       component: InspectionEndOfWarranty,
+      meta: {
+        title: 'Error',
+        auth: true
+      }
+    },
+    {
+      path: '/inspection/sitearrival',
+      name: 'InspectionSiteArrival',
+      component: InspectionSiteArrival,
       meta: {
         title: 'Error',
         auth: true
@@ -101,6 +113,24 @@ const router = new Router({
       }
     },
     {
+      path: '/newinspection',
+      name: 'NewInspection',
+      component: NewInspection,
+      meta: {
+        title: 'Error',
+        auth: true
+      }
+    },
+    {
+      path: '/inspection/newsitearrival',
+      name: 'NewSiteArrival',
+      component: NewSiteArrival,
+      meta: {
+        title: 'Error',
+        auth: true
+      }
+    },
+    {
       path: '/callback',
       name: 'callback',
       component: Callback,
@@ -125,7 +155,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // Use the page's router title to name the page
   if (to.meta && to.meta.title) {
-    document.title = to.meta.title
+    document.title = "sibuwind"
   }
 
   // Redirect to the login page if not authenticated
@@ -139,7 +169,7 @@ router.beforeEach((to, from, next) => {
       }
     } else {
       if (store.getters.isAuthenticated) {
-        router.push({ name: 'home' })
+        router.push({ name: 'HomePage' })
       } else {
         next()
       }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Windfarms</h2>
-    <b-row class="right margin-bot-20">
+    <b-row class="windfarm-search">
       <b-col md="qw" class="my-1">
         <b-form-group class="mb-0">
           <b-input-group>
@@ -17,7 +17,7 @@
     <b-row>
       <gmap-map
         :center="center"
-        :zoom="5"
+        :zoom="7"
         style="width: 500px; height: 450px; flex: 100% 1 1"
       >
         <gmap-marker
@@ -35,7 +35,7 @@
 export default {
     data () {
       return {
-        center: {lat: 40.416775, lng: -3.703790}
+        center: {lat: -23.6821604, lng: -46.8754915}
       }
     }
   }
@@ -45,7 +45,7 @@ export default {
 .title {
   color: #312377;
 }
-.right {
+.windfarm-search {
   justify-content: flex-end;
 }
 </style>
